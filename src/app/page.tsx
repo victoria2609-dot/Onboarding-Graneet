@@ -50,8 +50,8 @@ export default function HomePage() {
 
   const validate = () => {
     const newErrors: { prenom?: string; equipe?: string } = {};
-    if (!prenom.trim()) newErrors.prenom = 'Votre prénom est requis.';
-    if (!equipe) newErrors.equipe = 'Veuillez sélectionner votre équipe.';
+    if (!prenom.trim()) newErrors.prenom = 'Ton prénom est requis.';
+    if (!equipe) newErrors.equipe = 'Veuillez sélectionner ton équipe.';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -115,14 +115,14 @@ export default function HomePage() {
               Bienvenue dans<br />l&apos;aventure Graneet&nbsp;🚀
             </h1>
             <p className="text-lg opacity-80 leading-relaxed text-balance">
-              Votre parcours d&apos;intégration personnalisé vous attend. Découvrez l&apos;entreprise, l&apos;équipe et vos outils — à votre rythme.
+              Ton parcours d&apos;intégration personnalisé t&apos;attend. Découvre l&apos;entreprise, l&apos;équipe et tes outils — à ton rythme.
             </p>
           </div>
 
           {/* Feature bullets */}
           <div className="w-full space-y-3 mt-4">
             {[
-              { icon: '🗂️', text: 'Parcours adapté à votre équipe' },
+              { icon: '🗂️', text: 'Parcours adapté à ton équipe' },
               { icon: '✅', text: 'Suivi de progression en temps réel' },
               { icon: '📚', text: 'Ressources et formations intégrées' },
               { icon: '🤝', text: 'Rencontrez vos collègues dès le Jour 1' },
@@ -159,7 +159,7 @@ export default function HomePage() {
               Commençons&nbsp;! 🎉
             </h2>
             <p className="text-base" style={{ color: 'var(--text-muted)' }}>
-              Quelques infos pour personnaliser votre parcours d&apos;intégration.
+              Quelques infos pour personnaliser ton parcours d&apos;intégration.
             </p>
           </div>
 
@@ -205,7 +205,7 @@ export default function HomePage() {
                   className="input-field appearance-none pr-10"
                   style={{ cursor: 'pointer' }}
                 >
-                  <option value="">Sélectionnez votre équipe…</option>
+                  <option value="">Sélectionne ton équipe…</option>
                   {TEAMS.map((t) => (
                     <option key={t} value={t}>
                       {t}
@@ -272,7 +272,7 @@ export default function HomePage() {
 
           {/* Footer note */}
           <p className="mt-8 text-center text-xs" style={{ color: 'var(--text-muted)' }}>
-            Vos données sont stockées uniquement dans votre navigateur.{' '}
+            Tes données sont stockées uniquement dans ton navigateur.{' '}
             <span className="font-medium">Aucune donnée n&apos;est transmise à nos serveurs.</span>
           </p>
         </div>

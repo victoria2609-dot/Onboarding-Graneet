@@ -332,7 +332,7 @@ export default function OnboardingPage() {
             <path className="opacity-90" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
           </svg>
           <p className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>
-            Chargement de votre parcours…
+            Chargement de ton parcours…
           </p>
         </div>
       </div>
@@ -506,7 +506,7 @@ export default function OnboardingPage() {
               Rien à faire ici !
             </h3>
             <p className="text-sm text-center max-w-xs" style={{ color: 'var(--text-muted)' }}>
-              Aucune tâche n&apos;est prévue pour votre équipe durant cette période.
+              Aucune tâche n&apos;est prévue pour ton équipe durant cette période.
             </p>
           </div>
         ) : (

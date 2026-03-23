@@ -81,7 +81,7 @@ export default function HomePage() {
       {/* Left panel — decorative */}
       <div
         className="hidden lg:flex lg:w-1/2 flex-col items-center justify-center relative overflow-hidden p-12"
-        style={{ background: 'linear-gradient(145deg, #0F2820 0%, #1B4D3E 55%, #2D6E5A 100%)' }}
+        style={{ background: 'linear-gradient(145deg, #0A1614 0%, #1A2A27 55%, #2D4A45 100%)' }}
       >
         {/* Decorative circles */}
         <div
@@ -99,16 +99,15 @@ export default function HomePage() {
 
         {/* Logo + brand */}
         <div className="relative z-10 flex flex-col items-center gap-8 text-white text-center max-w-md animate-fade-in">
-          <div className="flex items-center gap-3">
-            <div
-              className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg"
-              style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.2)' }}
-            >
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <text x="6" y="24" fontFamily="Inter, sans-serif" fontWeight="800" fontSize="22" fill="white">G</text>
-              </svg>
-            </div>
-            <span className="text-2xl font-bold tracking-tight">Graneet</span>
+          <div className="flex items-center">
+            {/* Logo blanc pour le panneau sombre */}
+            <svg width="160" height="42" viewBox="0 0 180 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="4" y1="30" x2="16" y2="10" stroke="white" strokeWidth="7.5" strokeLinecap="round"/>
+              <line x1="15" y1="30" x2="27" y2="10" stroke="white" strokeWidth="7.5" strokeLinecap="round"/>
+              <line x1="8" y1="42" x2="20" y2="22" stroke="white" strokeWidth="7.5" strokeLinecap="round"/>
+              <line x1="19" y1="42" x2="31" y2="22" stroke="white" strokeWidth="7.5" strokeLinecap="round"/>
+              <text x="44" y="34" fontFamily="Inter, ui-sans-serif, system-ui, sans-serif" fontWeight="600" fontSize="26" fill="white" letterSpacing="-0.8">Graneet</text>
+            </svg>
           </div>
 
           <div className="space-y-4">
@@ -144,16 +143,14 @@ export default function HomePage() {
       {/* Right panel — form */}
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 lg:px-16">
         {/* Mobile logo */}
-        <div className="lg:hidden flex items-center gap-2 mb-8">
-          <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center"
-            style={{ background: 'var(--primary)' }}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <text x="4" y="18" fontFamily="Inter, sans-serif" fontWeight="800" fontSize="16" fill="white">G</text>
-            </svg>
-          </div>
-          <span className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>Graneet</span>
+        <div className="lg:hidden flex items-center mb-8">
+          <svg width="140" height="38" viewBox="0 0 180 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="4" y1="30" x2="16" y2="10" stroke="#1A2A27" strokeWidth="7.5" strokeLinecap="round"/>
+            <line x1="15" y1="30" x2="27" y2="10" stroke="#1A2A27" strokeWidth="7.5" strokeLinecap="round"/>
+            <line x1="8" y1="42" x2="20" y2="22" stroke="#1A2A27" strokeWidth="7.5" strokeLinecap="round"/>
+            <line x1="19" y1="42" x2="31" y2="22" stroke="#1A2A27" strokeWidth="7.5" strokeLinecap="round"/>
+            <text x="44" y="34" fontFamily="Inter, ui-sans-serif, system-ui, sans-serif" fontWeight="600" fontSize="26" fill="#1A2A27" letterSpacing="-0.8">Graneet</text>
+          </svg>
         </div>
 
         <div className="w-full max-w-md animate-slide-up">

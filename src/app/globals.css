@@ -6,17 +6,17 @@
 
 :root {
   /* Graneet brand colors */
-  --primary: #1B4D3E;          /* Vert Empire */
-  --primary-light: #2D6E5A;
-  --primary-dark: #0F3028;
-  --primary-50: #EAF2EF;
-  --primary-100: #C0DAD3;
+  --primary: #1A2A27;          /* Vert Empire (dark) */
+  --primary-light: #2D4A45;
+  --primary-dark: #0D1A18;
+  --primary-50: #EAF0EE;
+  --primary-100: #C0CEC9;
 
   --background: #F0EAE0;       /* Beige Poudre */
   --surface: #FDFAF6;
   --border: #DDD5C8;
 
-  --text-primary: #12201E;
+  --text-primary: #1A2A27;
   --text-secondary: #3D5450;
   --text-muted: #7A9490;
 

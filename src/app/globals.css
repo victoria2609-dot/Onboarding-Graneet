@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #2B6CB0;
+  --primary-light: #4A90E2;
+  --primary-dark: #1A4A7A;
+  --primary-50: #EBF4FF;
+  --primary-100: #C3DAFE;
+
+  --background: #F7F9FC;
+  --surface: #FFFFFF;
+  --border: #E2E8F0;
+
+  --text-primary: #1A202C;
+  --text-secondary: #4A5568;
+  --text-muted: #718096;
+
+  --badge-dojo-bg: #EDF2F7;
+  --badge-dojo-text: #4A5568;
+  --badge-presentation-bg: #FEFCE8;
+  --badge-presentation-text: #92400E;
+  --badge-setup-bg: #FAF5FF;
+  --badge-setup-text: #6B21A8;
+  --badge-task-bg: #FFFBEB;
+  --badge-task-text: #92400E;
+
+  --status-todo-bg: #F1F5F9;
+  --status-todo-text: #64748B;
+  --status-inprogress-bg: #EBF4FF;
+  --status-inprogress-text: #2B6CB0;
+  --status-done-bg: #F0FDF4;
+  --status-done-text: #15803D;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: var(--background);
+  color: var(--text-primary);
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+    background-color: var(--primary);
+  }
+  .btn-primary:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(43, 108, 176, 0.35);
+  }
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+  .btn-primary:focus {
+    --tw-ring-color: var(--primary);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 focus:outline-none;
+    color: var(--text-secondary);
+    background-color: transparent;
+  }
+  .btn-ghost:hover {
+    background-color: var(--border);
+    color: var(--text-primary);
+  }
+
+  .card {
+    @apply bg-white rounded-2xl border shadow-sm;
+    border-color: var(--border);
+  }
+  .card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border text-base transition-all duration-200 outline-none bg-white;
+    border-color: var(--border);
+    color: var(--text-primary);
+  }
+  .input-field:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.12);
+  }
+  .input-field::placeholder {
+    color: var(--text-muted);
+  }
+
+  .label {
+    @apply block text-sm font-semibold mb-1.5;
+    color: var(--text-secondary);
+  }
+
+  .timeline-tab {
+    @apply px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 cursor-pointer;
+  }
+  .timeline-tab-active {
+    color: white;
+    background-color: var(--primary);
+    box-shadow: 0 2px 8px rgba(43, 108, 176, 0.3);
+  }
+  .timeline-tab-inactive {
+    color: var(--text-secondary);
+    background-color: transparent;
+  }
+  .timeline-tab-inactive:hover {
+    background-color: var(--border);
+    color: var(--text-primary);
+  }
+
+  .progress-bar-track {
+    @apply w-full rounded-full overflow-hidden;
+    background-color: var(--border);
+    height: 8px;
+  }
+  .progress-bar-fill {
+    @apply h-full rounded-full transition-all duration-500;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+  }
+
+  .badge-dojo {
+    background-color: var(--badge-dojo-bg);
+    color: var(--badge-dojo-text);
+  }
+  .badge-presentation {
+    background-color: var(--badge-presentation-bg);
+    color: var(--badge-presentation-text);
+  }
+  .badge-setup {
+    background-color: var(--badge-setup-bg);
+    color: var(--badge-setup-text);
+  }
+  .badge-task {
+    background-color: var(--badge-task-bg);
+    color: var(--badge-task-text);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}

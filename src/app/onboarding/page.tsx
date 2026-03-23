@@ -31,10 +31,10 @@ const TIMELINE_LABELS: Record<NormalizedTimeline, string> = {
 const STATUS_CYCLE: TaskStatus[] = ['To do', 'In Progress', 'Done'];
 
 const TEAM_COLORS: Record<string, { bg: string; text: string }> = {
-  Tech: { bg: '#EBF4FF', text: '#2B6CB0' },
+  Tech: { bg: '#EAF2EF', text: '#1B4D3E' },
   'Product Management': { bg: '#FAF5FF', text: '#6B21A8' },
   'Product design': { bg: '#FDF2F8', text: '#9D174D' },
-  'Customer Success': { bg: '#F0FDF4', text: '#15803D' },
+  'Customer Success': { bg: '#EAF2EF', text: '#1B6B52' },
   Sales: { bg: '#FFF7ED', text: '#C2410C' },
   HR: { bg: '#FEFCE8', text: '#A16207' },
   SDR: { bg: '#F0F9FF', text: '#0369A1' },
@@ -130,7 +130,7 @@ function TaskCard({
           {task.board === 'tech' && (
             <span
               className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
-              style={{ background: '#EBF4FF', color: '#2B6CB0', border: '1px solid #C3DAFE' }}
+              style={{ background: '#EAF2EF', color: '#1B4D3E', border: '1px solid #C0DAD3' }}
             >
               Tech
             </span>

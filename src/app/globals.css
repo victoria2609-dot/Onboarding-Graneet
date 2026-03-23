@@ -5,19 +5,20 @@
 @tailwind utilities;
 
 :root {
-  --primary: #2B6CB0;
-  --primary-light: #4A90E2;
-  --primary-dark: #1A4A7A;
-  --primary-50: #EBF4FF;
-  --primary-100: #C3DAFE;
+  /* Graneet brand colors */
+  --primary: #1B4D3E;          /* Vert Empire */
+  --primary-light: #2D6E5A;
+  --primary-dark: #0F3028;
+  --primary-50: #EAF2EF;
+  --primary-100: #C0DAD3;
 
-  --background: #F7F9FC;
-  --surface: #FFFFFF;
-  --border: #E2E8F0;
+  --background: #F0EAE0;       /* Beige Poudre */
+  --surface: #FDFAF6;
+  --border: #DDD5C8;
 
-  --text-primary: #1A202C;
-  --text-secondary: #4A5568;
-  --text-muted: #718096;
+  --text-primary: #12201E;
+  --text-secondary: #3D5450;
+  --text-muted: #7A9490;
 
   --badge-dojo-bg: #EDF2F7;
   --badge-dojo-text: #4A5568;
@@ -61,7 +62,7 @@ body {
   .btn-primary:hover {
     background-color: var(--primary-dark);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(43, 108, 176, 0.35);
+    box-shadow: 0 4px 12px rgba(27, 77, 62, 0.35);
   }
   .btn-primary:active {
     transform: translateY(0);
@@ -95,7 +96,7 @@ body {
   }
   .input-field:focus {
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.12);
+    box-shadow: 0 0 0 3px rgba(27, 77, 62, 0.12);
   }
   .input-field::placeholder {
     color: var(--text-muted);
@@ -112,7 +113,7 @@ body {
   .timeline-tab-active {
     color: white;
     background-color: var(--primary);
-    box-shadow: 0 2px 8px rgba(43, 108, 176, 0.3);
+    box-shadow: 0 2px 8px rgba(27, 77, 62, 0.3);
   }
   .timeline-tab-inactive {
     color: var(--text-secondary);

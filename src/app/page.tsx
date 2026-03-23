@@ -81,7 +81,7 @@ export default function HomePage() {
       {/* Left panel — decorative */}
       <div
         className="hidden lg:flex lg:w-1/2 flex-col items-center justify-center relative overflow-hidden p-12"
-        style={{ background: 'linear-gradient(145deg, #1A3A5C 0%, #2B6CB0 50%, #4A90E2 100%)' }}
+        style={{ background: 'linear-gradient(145deg, #0F2820 0%, #1B4D3E 55%, #2D6E5A 100%)' }}
       >
         {/* Decorative circles */}
         <div

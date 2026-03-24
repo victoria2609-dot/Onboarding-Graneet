@@ -100,14 +100,12 @@ export default function HomePage() {
         {/* Logo + brand */}
         <div className="relative z-10 flex flex-col items-center gap-8 text-white text-center max-w-md animate-fade-in">
           <div className="flex items-center">
-            {/* Logo blanc pour le panneau sombre */}
-            <svg width="160" height="42" viewBox="0 0 180 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <line x1="4" y1="30" x2="16" y2="10" stroke="white" strokeWidth="7.5" strokeLinecap="round"/>
-              <line x1="15" y1="30" x2="27" y2="10" stroke="white" strokeWidth="7.5" strokeLinecap="round"/>
-              <line x1="8" y1="42" x2="20" y2="22" stroke="white" strokeWidth="7.5" strokeLinecap="round"/>
-              <line x1="19" y1="42" x2="31" y2="22" stroke="white" strokeWidth="7.5" strokeLinecap="round"/>
-              <text x="44" y="34" fontFamily="Inter, ui-sans-serif, system-ui, sans-serif" fontWeight="600" fontSize="26" fill="white" letterSpacing="-0.8">Graneet</text>
-            </svg>
+            {/* Vrai logo Graneet — blanc sur fond sombre */}
+            <img
+              src="/graneet-logo.png"
+              alt="Graneet"
+              style={{ height: '38px', width: 'auto', filter: 'brightness(0) invert(1)' }}
+            />
           </div>
 
           <div className="space-y-4">
@@ -144,13 +142,7 @@ export default function HomePage() {
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 lg:px-16">
         {/* Mobile logo */}
         <div className="lg:hidden flex items-center mb-8">
-          <svg width="140" height="38" viewBox="0 0 180 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <line x1="4" y1="30" x2="16" y2="10" stroke="#1A2A27" strokeWidth="7.5" strokeLinecap="round"/>
-            <line x1="15" y1="30" x2="27" y2="10" stroke="#1A2A27" strokeWidth="7.5" strokeLinecap="round"/>
-            <line x1="8" y1="42" x2="20" y2="22" stroke="#1A2A27" strokeWidth="7.5" strokeLinecap="round"/>
-            <line x1="19" y1="42" x2="31" y2="22" stroke="#1A2A27" strokeWidth="7.5" strokeLinecap="round"/>
-            <text x="44" y="34" fontFamily="Inter, ui-sans-serif, system-ui, sans-serif" fontWeight="600" fontSize="26" fill="#1A2A27" letterSpacing="-0.8">Graneet</text>
-          </svg>
+          <img src="/graneet-logo.png" alt="Graneet" style={{ height: '32px', width: 'auto' }} />
         </div>
 
         <div className="w-full max-w-md animate-slide-up">

@@ -371,13 +371,7 @@ export default function OnboardingPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
           {/* Logo + greeting */}
           <div className="flex items-center gap-3 min-w-0">
-            <svg width="90" height="26" viewBox="0 0 180 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
-              <line x1="4" y1="30" x2="16" y2="10" stroke="#1A2A27" strokeWidth="7.5" strokeLinecap="round"/>
-              <line x1="15" y1="30" x2="27" y2="10" stroke="#1A2A27" strokeWidth="7.5" strokeLinecap="round"/>
-              <line x1="8" y1="42" x2="20" y2="22" stroke="#1A2A27" strokeWidth="7.5" strokeLinecap="round"/>
-              <line x1="19" y1="42" x2="31" y2="22" stroke="#1A2A27" strokeWidth="7.5" strokeLinecap="round"/>
-              <text x="44" y="34" fontFamily="Inter, ui-sans-serif, system-ui, sans-serif" fontWeight="600" fontSize="26" fill="#1A2A27" letterSpacing="-0.8">Graneet</text>
-            </svg>
+            <img src="/graneet-logo.png" alt="Graneet" className="flex-shrink-0" style={{ height: '28px', width: 'auto' }} />
             <div className="min-w-0">
               <h1 className="text-base sm:text-lg font-bold leading-tight truncate" style={{ color: 'var(--text-primary)' }}>
                 Bonjour {user?.prenom}&nbsp;👋

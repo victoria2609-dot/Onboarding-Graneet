@@ -104,7 +104,7 @@ export default function HomePage() {
             <img
               src="/graneet-logo.png"
               alt="Graneet"
-              style={{ height: '38px', width: 'auto', filter: 'brightness(0) invert(1)' }}
+              style={{ height: '28px', width: 'auto', filter: 'brightness(0) invert(1)' }}
             />
           </div>
 
@@ -142,7 +142,7 @@ export default function HomePage() {
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 lg:px-16">
         {/* Mobile logo */}
         <div className="lg:hidden flex items-center mb-8">
-          <img src="/graneet-logo.png" alt="Graneet" style={{ height: '32px', width: 'auto' }} />
+          <img src="/graneet-logo.png" alt="Graneet" style={{ height: '28px', width: 'auto' }} />
         </div>
 
         <div className="w-full max-w-md animate-slide-up">

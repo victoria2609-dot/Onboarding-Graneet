@@ -464,7 +464,18 @@ export default function OnboardingPage() {
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
-            <img src="/graneet-logo.png" alt="Graneet" className="flex-shrink-0" style={{ height: '28px', width: 'auto' }} />
+            {/* Symbole Graneet seul (sans wordmark) — évite le doublon avec "Bonjour …" */}
+            <svg
+              width="28" height="32" viewBox="0 0 36 48" fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-label="Graneet"
+              className="flex-shrink-0"
+            >
+              <line x1="4"  y1="30" x2="16" y2="10" stroke="#1A2A27" strokeWidth="7.5" strokeLinecap="round"/>
+              <line x1="15" y1="30" x2="27" y2="10" stroke="#1A2A27" strokeWidth="7.5" strokeLinecap="round"/>
+              <line x1="8"  y1="42" x2="20" y2="22" stroke="#1A2A27" strokeWidth="7.5" strokeLinecap="round"/>
+              <line x1="19" y1="42" x2="31" y2="22" stroke="#1A2A27" strokeWidth="7.5" strokeLinecap="round"/>
+            </svg>
             <div className="min-w-0">
               <h1 className="text-base sm:text-lg font-bold leading-tight truncate" style={{ color: 'var(--text-primary)' }}>
                 Bonjour {user?.prenom}&nbsp;👋

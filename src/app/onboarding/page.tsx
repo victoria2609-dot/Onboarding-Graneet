@@ -6,8 +6,9 @@ import type { Task, NormalizedTimeline, TeamValue, TaskStatus } from '../api/tas
 
 // ─── Constants ─────────────────────────────────────────────────────────────────
 
-const STORAGE_KEY_USER = 'graneet_user';
+const STORAGE_KEY_USER     = 'graneet_user';
 const STORAGE_KEY_PROGRESS = 'graneet_progress';
+const STORAGE_KEY_LEGEND   = 'graneet_legend_dismissed';
 
 const ALL_TIMELINES: NormalizedTimeline[] = [
   'Jour 1',
@@ -16,29 +17,64 @@ const ALL_TIMELINES: NormalizedTimeline[] = [
   'Semaine 3',
   'Semaine 4+',
   'Mois 2',
+  'Post-attribution',
 ];
 
 const TIMELINE_LABELS: Record<NormalizedTimeline, string> = {
-  'Jour 1': 'Jour 1',
-  'Semaine 1': 'Semaine 1',
-  'Semaine 2': 'Semaine 2',
-  'Semaine 3': 'Semaine 3',
-  'Semaine 4+': 'Semaine 4+',
-  'Mois 2': 'Mois 2',
-  'Post-attribution': 'Post',
+  'Jour 1':           'Jour 1',
+  'Semaine 1':        'Semaine 1',
+  'Semaine 2':        'Semaine 2',
+  'Semaine 3':        'Semaine 3',
+  'Semaine 4+':       'Semaine 4+',
+  'Mois 2':           'Mois 2',
+  'Post-attribution': '8 mois+',
+};
+
+const TIMELINE_DESCRIPTIONS: Record<NormalizedTimeline, string> = {
+  'Jour 1':           'Premiers pas chez Graneet — installation et découverte',
+  'Semaine 1':        'Prise en main des outils, ressources produit et quizzes',
+  'Semaine 2':        'Ateliers, découverte du produit et des processus',
+  'Semaine 3':        'Autonomie et bilan intermédiaire',
+  'Semaine 4+':       'Montée en compétences et approfondissement',
+  'Mois 2':           'Sujets avancés et premières contributions en autonomie',
+  'Post-attribution': 'Bilan post-attribution — 8 mois après ton arrivée',
 };
 
 const STATUS_CYCLE: TaskStatus[] = ['To do', 'In Progress', 'Done'];
 
 const TEAM_COLORS: Record<string, { bg: string; text: string }> = {
-  Tech: { bg: '#EAF0EE', text: '#1A2A27' },
+  Tech:                 { bg: '#EAF0EE', text: '#1A2A27' },
   'Product Management': { bg: '#FAF5FF', text: '#6B21A8' },
-  'Product design': { bg: '#FDF2F8', text: '#9D174D' },
-  'Customer Success': { bg: '#EAF2EF', text: '#1B6B52' },
-  Sales: { bg: '#FFF7ED', text: '#C2410C' },
-  HR: { bg: '#FEFCE8', text: '#A16207' },
-  SDR: { bg: '#F0F9FF', text: '#0369A1' },
+  'Product design':     { bg: '#FDF2F8', text: '#9D174D' },
+  'Customer Success':   { bg: '#EAF2EF', text: '#1B6B52' },
+  Sales:                { bg: '#FFF7ED', text: '#C2410C' },
+  HR:                   { bg: '#FEFCE8', text: '#A16207' },
+  SDR:                  { bg: '#F0F9FF', text: '#0369A1' },
 };
+
+// Explication des types de tâches (depuis la charte d'onboarding Graneet)
+const TASK_TYPE_LEGEND = [
+  {
+    icon: '💻',
+    label: 'Set-up',
+    desc: "Tâche à effectuer à ton arrivée pour mettre en place ton environnement de travail.",
+  },
+  {
+    icon: '📋',
+    label: 'Présentation',
+    desc: "Contenu présenté par un membre de l'équipe pour monter en compétences sur les sujets Graneet. Si la présentation n'est pas dans ton agenda, ping la personne responsable pour organiser cela !",
+  },
+  {
+    icon: '🥋',
+    label: 'Dojo',
+    desc: "Explication théorique sur le fonctionnement d'un sujet et mise en pratique. L'objectif est de devenir autonome sur la tâche.",
+  },
+  {
+    icon: '📍',
+    label: 'Tâche',
+    desc: "À réaliser dans la période de ton onboarding.",
+  },
+];
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 
@@ -56,8 +92,8 @@ function TypeBadge({ type }: { type: string | null }) {
   if (!type) return null;
   let cls = 'badge-dojo';
   if (type.includes('Présentation')) cls = 'badge-presentation';
-  else if (type.includes('Set-up')) cls = 'badge-setup';
-  else if (type.includes('Task')) cls = 'badge-task';
+  else if (type.includes('Set-up'))  cls = 'badge-setup';
+  else if (type.includes('Tâche') || type.includes('Task')) cls = 'badge-task';
 
   return (
     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${cls}`}>
@@ -74,10 +110,10 @@ function StatusButton({
   onClick: () => void;
 }) {
   const styles: Record<TaskStatus, { bg: string; text: string; label: string }> = {
-    'To do': { bg: 'var(--status-todo-bg)', text: 'var(--status-todo-text)', label: 'À faire' },
-    'In Progress': { bg: 'var(--status-inprogress-bg)', text: 'var(--status-inprogress-text)', label: 'En cours' },
-    Done: { bg: 'var(--status-done-bg)', text: 'var(--status-done-text)', label: 'Terminé ✓' },
-    'Bac rouge': { bg: '#FFF5F5', text: '#C53030', label: 'Bac rouge' },
+    'To do':      { bg: 'var(--status-todo-bg)',       text: 'var(--status-todo-text)',       label: 'À faire'    },
+    'In Progress':{ bg: 'var(--status-inprogress-bg)', text: 'var(--status-inprogress-text)', label: 'En cours'   },
+    Done:         { bg: 'var(--status-done-bg)',        text: 'var(--status-done-text)',        label: 'Terminé ✓' },
+    'Bac rouge':  { bg: '#FFF5F5',                     text: '#C53030',                        label: 'Bac rouge'  },
   };
 
   const s = styles[status] ?? styles['To do'];
@@ -95,7 +131,10 @@ function StatusButton({
         </svg>
       )}
       {status === 'In Progress' && (
-        <span className="w-2 h-2 rounded-full inline-block animate-pulse-slow" style={{ background: 'var(--status-inprogress-text)' }} />
+        <span
+          className="w-2 h-2 rounded-full inline-block animate-pulse-slow"
+          style={{ background: 'var(--status-inprogress-text)' }}
+        />
       )}
       {s.label}
     </button>
@@ -123,7 +162,6 @@ function TaskCard({
     <div
       className={`card p-4 flex flex-col sm:flex-row sm:items-start gap-3 transition-all duration-200 ${isDone ? 'opacity-60' : ''}`}
     >
-      {/* Left: info */}
       <div className="flex-1 min-w-0 space-y-2">
         <div className="flex flex-wrap items-center gap-2">
           <TypeBadge type={task.type} />
@@ -181,10 +219,7 @@ function TaskCard({
               <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
                 <path
                   d="M4.5 2H2a1 1 0 00-1 1v6a1 1 0 001 1h6a1 1 0 001-1V6.5M7 1h3m0 0v3m0-3L4.5 6.5"
-                  stroke="currentColor"
-                  strokeWidth="1.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                  stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"
                 />
               </svg>
               Ouvrir dans Notion
@@ -193,9 +228,82 @@ function TaskCard({
         </div>
       </div>
 
-      {/* Right: status toggle */}
       <div className="flex-shrink-0">
         <StatusButton status={status} onClick={handleToggle} />
+      </div>
+    </div>
+  );
+}
+
+// ─── Legend panel ───────────────────────────────────────────────────────────────
+
+function LegendPanel({ onDismiss }: { onDismiss: () => void }) {
+  return (
+    <div
+      className="rounded-2xl border p-5 mb-6 animate-fade-in"
+      style={{
+        background:   'linear-gradient(135deg, #F7F4EF 0%, #FDFAF6 100%)',
+        borderColor:  'var(--border)',
+        boxShadow:    '0 2px 8px rgba(26,42,39,0.06)',
+      }}
+    >
+      {/* Header */}
+      <div className="flex items-start justify-between gap-3 mb-4">
+        <div className="flex items-center gap-2">
+          <span className="text-lg">📖</span>
+          <div>
+            <h3 className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>
+              Comment lire ce parcours ?
+            </h3>
+            <p className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>
+              Les tâches se divisent en 4 types. Les statuts <strong>À faire → En cours → Terminé</strong> se
+              changent en cliquant sur le bouton à droite de chaque carte.
+            </p>
+          </div>
+        </div>
+        <button
+          onClick={onDismiss}
+          className="flex-shrink-0 p-1.5 rounded-lg transition-colors hover:bg-black/5"
+          title="Fermer"
+          style={{ color: 'var(--text-muted)' }}
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Type cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {TASK_TYPE_LEGEND.map((item) => (
+          <div
+            key={item.label}
+            className="flex gap-3 p-3 rounded-xl"
+            style={{ background: 'white', border: '1px solid var(--border)' }}
+          >
+            <span className="text-xl flex-shrink-0 mt-0.5">{item.icon}</span>
+            <div>
+              <p className="text-xs font-bold mb-0.5" style={{ color: 'var(--text-primary)' }}>
+                {item.label}
+              </p>
+              <p className="text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+                {item.desc}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Bac rouge note */}
+      <div
+        className="mt-3 flex items-start gap-2 px-3 py-2 rounded-xl text-xs"
+        style={{ background: '#FFF5F5', border: '1px solid #FED7D7', color: '#9B2C2C' }}
+      >
+        <span className="flex-shrink-0 font-bold">🪣 Bac rouge</span>
+        <span>
+          Identifie une partie de l&apos;onboarding qui peut être améliorée — c&apos;est à toi de la compléter
+          pour les prochains arrivants !
+        </span>
       </div>
     </div>
   );
@@ -206,23 +314,21 @@ function TaskCard({
 export default function OnboardingPage() {
   const router = useRouter();
 
-  const [user, setUser] = useState<UserData | null>(null);
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [progress, setProgress] = useState<ProgressMap>({});
+  const [user,           setUser]           = useState<UserData | null>(null);
+  const [tasks,          setTasks]          = useState<Task[]>([]);
+  const [progress,       setProgress]       = useState<ProgressMap>({});
   const [activeTimeline, setActiveTimeline] = useState<NormalizedTimeline>('Jour 1');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [mounted, setMounted] = useState(false);
+  const [showLegend,     setShowLegend]     = useState(true);
+  const [loading,        setLoading]        = useState(true);
+  const [error,          setError]          = useState<string | null>(null);
+  const [mounted,        setMounted]        = useState(false);
 
   // Initialise from localStorage
   useEffect(() => {
     setMounted(true);
 
     const storedUser = localStorage.getItem(STORAGE_KEY_USER);
-    if (!storedUser) {
-      router.replace('/');
-      return;
-    }
+    if (!storedUser) { router.replace('/'); return; }
 
     let parsedUser: UserData;
     try {
@@ -232,32 +338,23 @@ export default function OnboardingPage() {
       return;
     }
 
-    if (!parsedUser.prenom || !parsedUser.equipe) {
-      router.replace('/');
-      return;
-    }
-
+    if (!parsedUser.prenom || !parsedUser.equipe) { router.replace('/'); return; }
     setUser(parsedUser);
 
+    // Restore progress
     const storedProgress = localStorage.getItem(STORAGE_KEY_PROGRESS);
     if (storedProgress) {
-      try {
-        setProgress(JSON.parse(storedProgress));
-      } catch {
-        /* ignore */
-      }
+      try { setProgress(JSON.parse(storedProgress)); } catch { /* ignore */ }
     }
+
+    // Restore legend state
+    const dismissed = localStorage.getItem(STORAGE_KEY_LEGEND);
+    if (dismissed === 'true') setShowLegend(false);
 
     // Fetch tasks
     fetch(`/api/tasks?team=${encodeURIComponent(parsedUser.equipe)}`)
-      .then((res) => {
-        if (!res.ok) throw new Error('Erreur réseau');
-        return res.json();
-      })
-      .then((data: { tasks: Task[] }) => {
-        setTasks(data.tasks);
-        setLoading(false);
-      })
+      .then((res) => { if (!res.ok) throw new Error('Erreur réseau'); return res.json(); })
+      .then((data: { tasks: Task[] }) => { setTasks(data.tasks); setLoading(false); })
       .catch((err) => {
         console.error(err);
         setError('Impossible de charger les tâches. Veuillez réessayer.');
@@ -273,40 +370,41 @@ export default function OnboardingPage() {
     });
   }, []);
 
+  const handleDismissLegend = useCallback(() => {
+    setShowLegend(false);
+    localStorage.setItem(STORAGE_KEY_LEGEND, 'true');
+  }, []);
+
+  const handleShowLegend = useCallback(() => {
+    setShowLegend(true);
+    localStorage.removeItem(STORAGE_KEY_LEGEND);
+  }, []);
+
   const handleLogout = () => {
     localStorage.removeItem(STORAGE_KEY_USER);
     localStorage.removeItem(STORAGE_KEY_PROGRESS);
+    localStorage.removeItem(STORAGE_KEY_LEGEND);
     router.replace('/');
   };
 
-  // Filter tasks for the current user and timeline
   const getTaskStatus = useCallback(
-    (task: Task): TaskStatus => {
-      return progress[task.url] ?? task.status ?? 'To do';
-    },
+    (task: Task): TaskStatus => progress[task.url] ?? task.status ?? 'To do',
     [progress]
   );
 
   const visibleTasks = tasks.filter((task) => {
     if (!user) return false;
-
-    // Team filter
     const teamMatch =
       task.team.includes('ALL' as TeamValue) ||
       task.team.includes(user.equipe as TeamValue);
-    if (!teamMatch) return false;
-
-    // Timeline filter
-    return task.timeline === activeTimeline;
+    return teamMatch && task.timeline === activeTimeline;
   });
 
-  // Available timelines for the current user
   const availableTimelines = ALL_TIMELINES.filter((tl) => {
     if (tl === 'Mois 2' && user?.equipe !== 'Tech') return false;
     return true;
   });
 
-  // Progress computation (tasks visible to this user, across all timelines)
   const userTasks = tasks.filter((task) => {
     if (!user) return false;
     return (
@@ -315,7 +413,7 @@ export default function OnboardingPage() {
     );
   });
 
-  const doneTasks = userTasks.filter((t) => getTaskStatus(t) === 'Done').length;
+  const doneTasks  = userTasks.filter((t) => getTaskStatus(t) === 'Done').length;
   const totalTasks = userTasks.length;
   const progressPct = totalTasks > 0 ? Math.round((doneTasks / totalTasks) * 100) : 0;
 
@@ -347,13 +445,8 @@ export default function OnboardingPage() {
           <h2 className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>
             Oups, quelque chose s&apos;est mal passé
           </h2>
-          <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
-            {error}
-          </p>
-          <button
-            onClick={() => window.location.reload()}
-            className="btn-primary text-sm"
-          >
+          <p className="text-sm" style={{ color: 'var(--text-muted)' }}>{error}</p>
+          <button onClick={() => window.location.reload()} className="btn-primary text-sm">
             Réessayer
           </button>
         </div>
@@ -363,13 +456,13 @@ export default function OnboardingPage() {
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--background)' }}>
+
       {/* ── Header ── */}
       <header
         className="sticky top-0 z-30 border-b"
         style={{ background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(12px)', borderColor: 'var(--border)' }}
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
-          {/* Logo + greeting */}
           <div className="flex items-center gap-3 min-w-0">
             <img src="/graneet-logo.png" alt="Graneet" className="flex-shrink-0" style={{ height: '28px', width: 'auto' }} />
             <div className="min-w-0">
@@ -384,7 +477,6 @@ export default function OnboardingPage() {
             </div>
           </div>
 
-          {/* Right: badge + logout */}
           <div className="flex items-center gap-2 flex-shrink-0">
             {user && teamStyle && (
               <span
@@ -394,13 +486,24 @@ export default function OnboardingPage() {
                 {user.equipe}
               </span>
             )}
-            <button
-              onClick={handleLogout}
-              className="btn-ghost text-xs"
-              title="Se déconnecter"
-            >
+            {/* Bouton pour ré-afficher la légende */}
+            {!showLegend && (
+              <button
+                onClick={handleShowLegend}
+                className="btn-ghost text-xs"
+                title="Afficher le guide"
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.4" />
+                  <path d="M8 7.5v4M8 5.5v.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+                <span className="hidden sm:inline">Guide</span>
+              </button>
+            )}
+            <button onClick={handleLogout} className="btn-ghost text-xs" title="Se déconnecter">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M6 14H3a1 1 0 01-1-1V3a1 1 0 011-1h3M11 11l3-3-3-3M14 8H6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M6 14H3a1 1 0 01-1-1V3a1 1 0 011-1h3M11 11l3-3-3-3M14 8H6"
+                  stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               <span className="hidden sm:inline">Déconnexion</span>
             </button>
@@ -431,7 +534,7 @@ export default function OnboardingPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="flex gap-1.5 py-3 overflow-x-auto scrollbar-hide">
             {availableTimelines.map((tl) => {
-              const isActive = activeTimeline === tl;
+              const isActive  = activeTimeline === tl;
               const taskCount = tasks.filter((t) => {
                 if (!user) return false;
                 const teamMatch =
@@ -468,20 +571,22 @@ export default function OnboardingPage() {
 
       {/* ── Task list ── */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+
+        {/* Legend panel (dismissible) */}
+        {showLegend && <LegendPanel onDismiss={handleDismissLegend} />}
+
         {/* Section header */}
-        <div className="flex items-center justify-between mb-5">
+        <div className="flex items-start justify-between gap-4 mb-5">
           <div>
             <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>
               {TIMELINE_LABELS[activeTimeline]}
             </h2>
             <p className="text-sm mt-0.5" style={{ color: 'var(--text-muted)' }}>
-              {visibleTasks.length === 0
-                ? 'Aucune tâche pour cette période'
-                : `${visibleTasks.length} tâche${visibleTasks.length > 1 ? 's' : ''}`}
+              {TIMELINE_DESCRIPTIONS[activeTimeline]}
             </p>
           </div>
           {visibleTasks.length > 0 && (
-            <div className="text-right">
+            <div className="text-right flex-shrink-0">
               <span className="text-sm font-semibold" style={{ color: 'var(--primary)' }}>
                 {visibleTasks.filter((t) => getTaskStatus(t) === 'Done').length} /{' '}
                 {visibleTasks.length} terminée{visibleTasks.length > 1 ? 's' : ''}
@@ -517,7 +622,6 @@ export default function OnboardingPage() {
           </div>
         )}
 
-        {/* Bottom padding */}
         <div className="h-16" />
       </main>
     </div>

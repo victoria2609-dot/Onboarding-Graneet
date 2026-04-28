@@ -464,9 +464,9 @@ export default function OnboardingPage() {
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
-            {/* Symbole Graneet seul (sans wordmark) — évite le doublon avec "Bonjour …" */}
+            {/* Symbole Graneet — viewBox serré pour parfait alignement vertical */}
             <svg
-              width="28" height="32" viewBox="0 0 36 48" fill="none"
+              width="34" height="38" viewBox="0 6 36 40" fill="none"
               xmlns="http://www.w3.org/2000/svg"
               aria-label="Graneet"
               className="flex-shrink-0"
@@ -476,12 +476,12 @@ export default function OnboardingPage() {
               <line x1="8"  y1="42" x2="20" y2="22" stroke="#1A2A27" strokeWidth="7.5" strokeLinecap="round"/>
               <line x1="19" y1="42" x2="31" y2="22" stroke="#1A2A27" strokeWidth="7.5" strokeLinecap="round"/>
             </svg>
-            <div className="min-w-0">
+            <div className="min-w-0 flex flex-col justify-center">
               <h1 className="text-base sm:text-lg font-bold leading-tight truncate" style={{ color: 'var(--text-primary)' }}>
                 Bonjour {user?.prenom}&nbsp;👋
               </h1>
               {user?.poste && (
-                <p className="text-xs truncate" style={{ color: 'var(--text-muted)' }}>
+                <p className="text-xs truncate mt-0.5" style={{ color: 'var(--text-muted)' }}>
                   {user.poste}
                 </p>
               )}
